@@ -1,89 +1,252 @@
-mysql> create database hhhh charset=utf8;
-Query OK, 1 row affected, 1 warning (0.03 sec)
 mysql> use hhhh;
 Database changed
-mysql> create table gouwuche (id int(3) primary key not null auto_increment,name varchar(20) not null,num int(4) default 1);
-Query OK, 0 rows affected (0.11 sec)
-mysql> insert into gouwuche(id,name,num)values(1,'joker',100);
-Query OK, 1 row affected (0.08 sec)
-mysql> alter table gouwuche add xihao varchar(3);
-Query OK, 0 rows affected (0.24 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+mysql> show tables;
++----------------+
+| Tables_in_hhhh |
++----------------+
+| countries      |
+| departments    |
+| dept           |
+| emp            |
+| employees      |
+| gouwuche       |
+| job_history    |
+| jobs           |
+| locations      |
+| regions        |
+| salgrade       |
++----------------+
+11 rows in set (0.00 sec)
 
-mysql> alter table gouwuche add money int(3);
-Query OK, 0 rows affected (0.09 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+mysql> select * from emp;
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM    | DEPTNO | kkk  | rrr  |
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     | NULL |    0 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     | NULL |    0 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     | NULL |    0 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     | NULL |    0 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     | NULL |    0 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     | NULL |    0 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     | NULL |    0 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     | NULL |    0 |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     | NULL |    0 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     | NULL |    0 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     | NULL |    0 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     | NULL |    0 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     | NULL |    0 |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     | NULL |    0 |
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+14 rows in set (0.00 sec)
 
-mysql> alter table gouwuche add zhekou varchar(3);
-Query OK, 0 rows affected (0.04 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+mysql> select distinct sal from emp:
+    -> select distinct sal from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':
+select distinct sal from emp' at line 1
+mysql> select distinct SAL from emp;
++------+
+| SAL  |
++------+
+|  800 |
+| 1600 |
+| 1250 |
+| 2975 |
+| 2850 |
+| 2450 |
+| 3000 |
+| 5000 |
+| 1500 |
+| 1100 |
+|  950 |
+| 1300 |
++------+
+12 rows in set (0.00 sec)
 
-mysql> alter table gouwuche add yuanwang varchar(3);
-Query OK, 0 rows affected (0.02 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+mysql> select * from emp where SAL=2;
+Empty set (0.00 sec)
 
-mysql> select * from gouwuche;
-+----+-------+------+-------+-------+--------+----------+
-| id | name  | num  | xihao | money | zhekou | yuanwang |
-+----+-------+------+-------+-------+--------+----------+
-|  1 | joker |  100 | NULL  |  NULL | NULL   | NULL     |
-+----+-------+------+-------+-------+--------+----------+
-1 row in set (0.01 sec)
+mysql> select * from emp order by SAL;
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM    | DEPTNO | kkk  | rrr  |
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     | NULL |    0 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     | NULL |    0 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     | NULL |    0 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     | NULL |    0 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     | NULL |    0 |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     | NULL |    0 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     | NULL |    0 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     | NULL |    0 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     | NULL |    0 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     | NULL |    0 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     | NULL |    0 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     | NULL |    0 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     | NULL |    0 |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     | NULL |    0 |
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+14 rows in set (0.00 sec)
 
-mysql> insert into gouwuche(id,name,num)values(2,'tttt',200);
-Query OK, 1 row affected (0.04 sec)
+mysql> select * from emp order by sal limit 2;
++-------+-------+-------+------+------------+------+------+--------+------+------+
+| EMPNO | ENAME | JOB   | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | kkk  | rrr  |
++-------+-------+-------+------+------------+------+------+--------+------+------+
+|  7369 | SMITH | CLERK | 7902 | 1980/12/17 |  800 |      | 20     | NULL |    0 |
+|  7900 | JAMES | CLERK | 7698 | 1981/12/3  |  950 |      | 30     | NULL |    0 |
++-------+-------+-------+------+------------+------+------+--------+------+------+
+2 rows in set (0.00 sec)
 
-mysql> insert into gouwuche(id,name,num)values(3,'eeee',500);
-Query OK, 1 row affected (0.05 sec)
-mysql> select * from gouwuche;
-+----+-------+------+-------+-------+--------+----------+
-| id | name  | num  | xihao | money | zhekou | yuanwang |
-+----+-------+------+-------+-------+--------+----------+
-|  1 | joker |  100 | NULL  |  NULL | NULL   | NULL     |
-|  2 | tttt  |  200 | NULL  |  NULL | NULL   | NULL     |
-|  3 | eeee  |  500 | NULL  |  NULL | NULL   | NULL     |
-+----+-------+------+-------+-------+--------+----------+
-3 rows in set (0.00 sec)
-mysql> update gouwuche set xihao='aaa',money=5022,zhekou='qie'where id=1;
-Query OK, 1 row affected (0.07 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from emp order by sal limit 3,4;
++-------+--------+----------+------+-----------+------+---------+--------+------+------+
+| EMPNO | ENAME  | JOB      | MGR  | HIREDATE  | SAL  | COMM    | DEPTNO | kkk  | rrr  |
++-------+--------+----------+------+-----------+------+---------+--------+------+------+
+|  7521 | WARD   | SALESMAN | 7698 | 1981/2/22 | 1250 | 500.00  | 30     | NULL |    0 |
+|  7654 | MARTIN | SALESMAN | 7698 | 1981/9/28 | 1250 | 1400.00 | 30     | NULL |    0 |
+|  7934 | MILLER | CLERK    | 7782 | 1982/1/23 | 1300 |         | 10     | NULL |    0 |
+|  7844 | TURNER | SALESMAN | 7698 | 1981/9/8  | 1500 | 0.00    | 30     | NULL |    0 |
++-------+--------+----------+------+-----------+------+---------+--------+------+------+
+4 rows in set (0.00 sec)
 
-mysql> update gouwuche set xihao='bbb',money=989,zhekou='yz'where id=2;
-Query OK, 1 row affected (0.14 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select max(SAL) from emp;
++----------+
+| max(SAL) |
++----------+
+|     5000 |
++----------+
+1 row in set (0.00 sec)
 
-mysql> select * from gouwuche;
-+----+-------+------+-------+-------+--------+----------+
-| id | name  | num  | xihao | money | zhekou | yuanwang |
-+----+-------+------+-------+-------+--------+----------+
-|  1 | joker |  100 | aaa   |  5022 | qie    | NULL     |
-|  2 | tttt  |  200 | bbb   |   989 | yz     | NULL     |
-|  3 | eeee  |  500 | ccc   |   456 | wz     | NULL     |
-+----+-------+------+-------+-------+--------+----------+
-3 rows in set (0.00 sec)
-mysql>  alter table gouwuche add iddelete int(1);
+mysql> select min(SAL) from emp;
++----------+
+| min(SAL) |
++----------+
+|      800 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(SAL) from emp;
++----------+
+| sum(SAL) |
++----------+
+|    29025 |
++----------+
+1 row in set (0.00 sec)
+mysql> select MGR,sum(MGR),max(MGR),SAL from emp group by MGR,sal having SAL>1300;
++------+----------+----------+------+
+| MGR  | sum(MGR) | max(MGR) | SAL  |
++------+----------+----------+------+
+| 7698 |     7698 | 7698     | 1600 |
+| 7839 |     7839 | 7839     | 2975 |
+| 7839 |     7839 | 7839     | 2850 |
+| 7839 |     7839 | 7839     | 2450 |
+| 7566 |    15132 | 7566     | 3000 |
+|      |        0 |          | 5000 |
+| 7698 |     7698 | 7698     | 1500 |
++------+----------+----------+------+
+7 rows in set (0.00 sec)
+
+mysql> select * from SAL;
+ERROR 1146 (42S02): Table 'hhhh.sal' doesn't exist
+mysql> select * from emp;
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM    | DEPTNO | kkk  | rrr  |
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     | NULL |    0 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     | NULL |    0 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     | NULL |    0 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     | NULL |    0 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     | NULL |    0 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     | NULL |    0 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     | NULL |    0 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     | NULL |    0 |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     | NULL |    0 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     | NULL |    0 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     | NULL |    0 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     | NULL |    0 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     | NULL |    0 |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     | NULL |    0 |
++-------+--------+-----------+------+------------+------+---------+--------+------+------+
+14 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+------------+----------+------+
+| DEPTNO | DNAME      | LOC      | rrr  |
++--------+------------+----------+------+
+|     10 | ACCOUNTING | NEW YORK |    0 |
+|     20 | RESEARCH   | DALLAS   |    0 |
+|     30 | SALES      | CHICAGO  |    0 |
+|     40 | OPERATIONS | BOSTON   |    0 |
++--------+------------+----------+------+
+4 rows in set (0.01 sec)
+
+mysql> alter table emp add sss int(2) defaulr 10;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'defaulr 10' at line 1
+mysql> alter table emp add sss int(2) default 10;
 Query OK, 0 rows affected (0.13 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> select * from gouwuche;
-+----+-------+------+-------+-------+--------+----------+----------+
-| id | name  | num  | xihao | money | zhekou | yuanwang | iddelete |
-+----+-------+------+-------+-------+--------+----------+----------+
-|  1 | joker |  100 | aaa   |  5022 | qie    | NULL     |     NULL |
-|  2 | tttt  |  200 | bbb   |   989 | yz     | NULL     |     NULL |
-|  3 | eeee  |  500 | ccc   |   456 | wz     | NULL     |     NULL |
-+----+-------+------+-------+-------+--------+----------+----------+
-3 rows in set (0.00 sec)
-mysql> update gouwuche set xihao='ccc',money=456,zhekou='wz',iddelete=0 where id=3;
-Query OK, 1 row affected (0.06 sec)
-Rows matched: 1  Changed: 1  Warnings: 0
+mysql> alter table dept add sss int(2) default 10;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> select * from gouwuche;
-+----+-------+------+-------+-------+--------+----------+----------+
-| id | name  | num  | xihao | money | zhekou | yuanwang | iddelete |
-+----+-------+------+-------+-------+--------+----------+----------+
-|  1 | joker |  100 | aaa   |  5022 | qie    | NULL     |     NULL |
-|  2 | tttt  |  200 | bbb   |   989 | yz     | NULL     |     NULL |
-|  3 | eeee  |  500 | ccc   |   456 | wz     | NULL     |        0 |
-+----+-------+------+-------+-------+--------+----------+----------+
-3 rows in set (0.00 sec)
+mysql> select * from emp,dept
+    -> where emp.rrr=dept.rrr;
++-------+--------+-----------+------+------------+------+---------+--------+------+------+------+--------+------------+----------+------+------+
+| EMPNO | ENAME  | JOB       | MGR  | HIREDATE   | SAL  | COMM    | DEPTNO | kkk  | rrr  | sss  | DEPTNO | DNAME      | LOC      | rrr  | sss  |
++-------+--------+-----------+------+------------+------+---------+--------+------+------+------+--------+------------+----------+------+------+
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7369 | SMITH  | CLERK     | 7902 | 1980/12/17 |  800 |         | 20     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7499 | ALLEN  | SALESMAN  | 7698 | 1981/2/20  | 1600 | 300.00  | 30     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7521 | WARD   | SALESMAN  | 7698 | 1981/2/22  | 1250 | 500.00  | 30     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7566 | JONES  | MANAGER   | 7839 | 1981/4/2   | 2975 |         | 20     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7654 | MARTIN | SALESMAN  | 7698 | 1981/9/28  | 1250 | 1400.00 | 30     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7698 | BLAKE  | MANAGER   | 7839 | 1981/5/1   | 2850 |         | 30     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7782 | CLARK  | MANAGER   | 7839 | 1981/6/9   | 2450 |         | 10     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7788 | SCOTT  | ANALYST   | 7566 | 1987/4/19  | 3000 |         | 20     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7839 | KING   | PRESIDENT |      | 1981/11/17 | 5000 |         | 10     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7844 | TURNER | SALESMAN  | 7698 | 1981/9/8   | 1500 | 0.00    | 30     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7876 | ADAMS  | CLERK     | 7788 | 1987/5/23  | 1100 |         | 20     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7900 | JAMES  | CLERK     | 7698 | 1981/12/3  |  950 |         | 30     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7902 | FORD   | ANALYST   | 7566 | 1981/12/3  | 3000 |         | 20     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     | NULL |    0 |   10 |     10 | ACCOUNTING | NEW YORK |    0 |   10 |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     | NULL |    0 |   10 |     20 | RESEARCH   | DALLAS   |    0 |   10 |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     | NULL |    0 |   10 |     30 | SALES      | CHICAGO  |    0 |   10 |
+|  7934 | MILLER | CLERK     | 7782 | 1982/1/23  | 1300 |         | 10     | NULL |    0 |   10 |     40 | OPERATIONS | BOSTON   |    0 |   10 |
++-------+--------+-----------+------+------------+------+---------+--------+------+------+------+--------+------------+----------+------+------+
+56 rows in set (0.00 sec)

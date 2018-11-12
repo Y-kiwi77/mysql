@@ -1,0 +1,63 @@
+mysql> create table home(uuu int unique primary key,www varchar(10) not null,fff enum('Y','N'));
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc home;
++-------+---------------+------+-----+---------+-------+
+| Field | Type          | Null | Key | Default | Extra |
++-------+---------------+------+-----+---------+-------+
+| uuu   | int(11)       | NO   | PRI | NULL    |       |
+| www   | varchar(10)   | NO   |     | NULL    |       |
+| fff   | enum('Y','N') | YES  |     | NULL    |       |
++-------+---------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+mysql> insert into home(
+    -> uuu,www,fff)values(
+    -> 001,'MMM','Y'),(002,'NNN','N'),(003,'AAA','N'),(004,'BBB','N');
+Query OK, 4 rows affected (0.10 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * from home;
++-----+-----+------+
+| uuu | www | fff  |
++-----+-----+------+
+|   1 | MMM | Y    |
+|   2 | NNN | N    |
+|   3 | AAA | N    |
+|   4 | BBB | N    |
++-----+-----+------+
+4 rows in set (0.00 sec)
+mysql> alter table home add TS timestamp not null default current_timestamp;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * from home;
++-----+-----+------+---------------------+
+| uuu | www | fff  | TS                  |
++-----+-----+------+---------------------+
+|   1 | MMM | Y    | 2018-11-12 23:30:35 |
+|   2 | NNN | N    | 2018-11-12 23:30:35 |
+|   3 | AAA | N    | 2018-11-12 23:30:35 |
+|   4 | BBB | N    | 2018-11-12 23:30:35 |
++-----+-----+------+---------------------+
+4 rows in set (0.00 sec)
+mysql> insert into home(
+    -> uuu,www,fff)valuse(
+    -> 5,'CCC','1');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'valuse(
+5,'CCC','1')' at line 2
+mysql> insert into home(
+    -> uuu,www,fff)values(
+    -> 5,'CCC','Y');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM home;
++-----+-----+------+---------------------+
+| uuu | www | fff  | TS                  |
++-----+-----+------+---------------------+
+|   1 | MMM | Y    | 2018-11-12 23:30:35 |
+|   2 | NNN | N    | 2018-11-12 23:30:35 |
+|   3 | AAA | N    | 2018-11-12 23:30:35 |
+|   4 | BBB | N    | 2018-11-12 23:30:35 |
+|   5 | CCC | Y    | 2018-11-12 23:36:03 |
++-----+-----+------+---------------------+
+5 rows in set (0.00 sec)

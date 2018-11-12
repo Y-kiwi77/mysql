@@ -1,0 +1,35 @@
+mysql> create table dianyings(
+    -> name varchar(10) not null, year int(4) not null,zhuyan varchar(10) not null,score int);
+Query OK, 0 rows affected (0.12 sec)
+mysql> insert into dianyings(
+    -> name,year,zhuyan,score)values(
+    -> 'bai',1999,'jing',10),('wei',2000,'da',9),('duan',2001,'yi',8);
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+mysql> select * from dianyings;
++------+------+--------+-------+
+| name | year | zhuyan | score |
++------+------+--------+-------+
+| bai  | 1999 | jing   |    10 |
+| wei  | 2000 | da     |     9 |
+| duan | 2001 | yi     |     8 |
++------+------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select name from dianyings where name like '%bai%';
++------+
+| name |
++------+
+| bai  |
++------+
+1 row in set (0.00 sec)
+mysql> select year from dianyings where name like '%2000%';
+Empty set (0.00 sec)
+
+mysql> select year from dianyings where year like '%2000%';
++------+
+| year |
++------+
+| 2000 |
++------+
+1 row in set (0.00 sec)

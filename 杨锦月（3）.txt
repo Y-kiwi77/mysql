@@ -1,0 +1,44 @@
+1.
+use hhhh;
+
+CREATE TABLE yonghu(
+
+yonghu_id smallint unsigned not null auto_increment,
+
+yonghu_name varchar(30) not null,
+aaa_id smallint unsigned not null,
+
+last_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, PRIMARY KEY (yonghu_id),
+
+
+KEY `idx_fx_aaa_id`(aaa_id),
+CONSTRAINT `fk_zhuangbei_yonghu` FOREIGN 
+KEY (aaa_id) REFERENCES aaa (aaa_id) 
+ON DELETE RESTRICT ON UPDATE CASCADE 
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+2.
+use hhhh;
+
+drop table if exists aaa;
+
+create table aaa (
+
+aaa_id smallint unsigned not null auto_increment,
+
+aaa_name varchar(30) not null, 
+aaa_money int unsigned not null,
+
+last_update timestamp not null default current_timestamp on update current_timestamp,
+primary key (aaa_id)
+
+)engine= innodb default charset=utf8;
+3.
+-- insert into aaa (aaa_name,aaa_money )
+-- value ('bai',1),('yue',1),('duan',4),('wei',3);
+
+
+
+insert into yonghu(yonghu_name,aaa_id)
+
+values('jing',1),('jin',1),('yi',2),('xun',3);
